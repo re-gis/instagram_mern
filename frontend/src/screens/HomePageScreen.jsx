@@ -1,8 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Box, Stack, styled } from "@mui/material";
 import Menu from "../components/Menu";
 import Feed from "../components/Feed";
 import axios from "axios";
+import { Store } from "../Store";
+import { useNavigate } from "react-router-dom";
 
 const StyledStack = styled(Stack)({
   display: "flex",
@@ -11,7 +13,17 @@ const StyledStack = styled(Stack)({
 });
 
 const HomePageScreen = () => {
-  
+  const navigate = useNavigate()
+  const { state, dispatch} = useContext(Store)
+  const {userInfo} = state
+
+  useEffect(() => {
+
+    if(!userInfo) {
+      navigate('/login')
+    }
+  }, [])
+
   return (
     <>
       <div>

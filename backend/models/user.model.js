@@ -3,11 +3,10 @@ const userModel = mongoose.Schema;
 
 const userSchema = new userModel(
   {
-    name: {
+    username: {
       type: String,
-      required: true,
     },
-    email: {
+    fullname: {
       type: String,
       required: true,
     },
@@ -17,13 +16,14 @@ const userSchema = new userModel(
     },
     number: {
       type: Number,
-      required: true,
     },
+    photo: {
+      type: String
+    }
   },
   {
     timestamps: true,
   }
 );
 
-
-module.exports = mongoose.model("User", userSchema)
+module.exports = mongoose.model("User", userSchema);

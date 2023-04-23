@@ -8,7 +8,6 @@ import ProfileEdit from '../components/profileComponents/ProfileEdit';
 const StyledStack = styled(Stack)({
   display: "flex",
   flexDirection: "row",
-  justifyContent: "space-between",
 });
 
 const ProfileEditScreen = () => {
@@ -19,7 +18,7 @@ const ProfileEditScreen = () => {
           <Box flex={0.2}>
             <Menu />
           </Box>
-          <Box flex={0.8} height="100%">
+          <Box flex={0.6} height="100%">
             <ProfileEdit />
           </Box>
         </StyledStack>

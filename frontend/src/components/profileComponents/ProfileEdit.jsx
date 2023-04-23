@@ -17,14 +17,13 @@ import ProfileForm from "./ProfileForm";
 const ProfileEdit = () => {
   return (
     <>
-      <Stack>
         <Box
           border={"1px solid #ccc"}
-          width="80%"
+          width="70%"
           display={"flex"}
           height="800px"
         >
-          <Box flex={"0.25"} borderRight={"1px solid #ccc"}>
+          <Box width={'35%'} borderRight={"1px solid #ccc"}>
             <Box
               className="p-6"
               borderBottom={"1px solid #ccc"}
@@ -70,18 +69,27 @@ const ProfileEdit = () => {
             </Box>
 
             <Box borderBottom={"1px solid #ccc"} height="50.81%" width={"100%"}>
-              <ListComponent font={500} title={"Edit profile"} />
-              <ListComponent title={"Change password"} />
-              <ListComponent title={"Apps and websites"} />
-              <ListComponent title={"Email notifications"} />
-              <ListComponent title={"Push notifications"} />
-              <ListComponent title={"Manage contacts"} />
-              <ListComponent title={"Privacy and security"} />
-              <ListComponent title={"Ads"} />
-              <ListComponent title={"Supervision"} />
-              <ListComponent title={"Login activity"} />
-              <ListComponent title={"Emails from Instagram"} />
-              <ListComponent title={"Help"} />
+              <ListComponent font={500} title={"Edit profile"} path="" />
+              <ListComponent title={"Change password"} path="edit/apps" />
+              <ListComponent title={"Apps and websites"} path="edit/apps" />
+              <ListComponent
+                title={"Email notifications"}
+                path="edit/emailnotifications"
+              />
+              <ListComponent
+                title={"Push notifications"}
+                path="edit/pushnotifications"
+              />
+              <ListComponent title={"Manage contacts"} path="edit/contacts" />
+              <ListComponent
+                title={"Privacy and security"}
+                path="edit/privacy"
+              />
+              <ListComponent title={"Ads"} path="adds" />
+              <ListComponent title={"Supervision"} path="supervision" />
+              <ListComponent title={"Login activity"} path="loginActivity" />
+              <ListComponent title={"Emails from Instagram"} path="igEmails" />
+              <ListComponent title={"Help"} path="edit/help" />
 
               <ListItem>
                 <Typography variant="span">
@@ -132,12 +140,11 @@ const ProfileEdit = () => {
             </Box>
           </Box>
 
-          <Box>
+          <Box width={'65%'}>
             <ProfileForm />
           </Box>
         </Box>
         <FooterTwo />
-      </Stack>
     </>
   );
 };

@@ -1,8 +1,9 @@
 import styled from '@emotion/styled';
 import { Box, Stack } from '@mui/material';
-import React from 'react'
+import React, { useContext } from 'react'
 import Menu from '../components/Menu';
 import ProfileEdit from '../components/profileComponents/ProfileEdit';
+import { Store } from '../Store';
 
 
 const StyledStack = styled(Stack)({
@@ -11,6 +12,8 @@ const StyledStack = styled(Stack)({
 });
 
 const ProfileEditScreen = () => {
+  const {state, dispatch} = useContext(Store)
+  const {userInfo} = state
   return (
     <>
       <div>

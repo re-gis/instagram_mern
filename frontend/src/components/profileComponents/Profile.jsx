@@ -37,7 +37,7 @@ const Profile = () => {
               className="justify-between items-center"
             >
               <h1 style={{ fontSize: "13px" }}>{userInfo.username}</h1>
-              <Link to={'/accounts/edit'}>
+              <Link to={'/profile/accounts/edit'}>
                 <button
                   className="border px-3 py-1 bg-gray-100 border-none rounded-lg hover:bg-gray-200"
                   style={{ fontSize: "10px", fontWeight: 500 }}

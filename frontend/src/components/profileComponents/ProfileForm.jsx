@@ -1,82 +1,221 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Stack } from "@mui/system";
 import { Avatar, Box, Typography } from "@mui/material";
 import { Link } from "react-router-dom";
+import { Store } from "../../Store";
+
 
 const ProfileForm = () => {
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
   return (
     <>
-      <Stack>
-        <Box display={"flex"} flexDirection="column" gap={"10px"}>
-          <Box display={"flex"} alignItems="center" gap={"10px"}>
-            <Avatar />
+      <Box display={"flex"} width={"100%"} flexDirection="column" gap={"10px"}>
+        <Box className="flex flex-col items-stretch align-baseline">
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-start",
+              flexDirection: "row",
+              marginBottom: "16px",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                paddingRight: "32px",
+                textAlign: "right",
+                flex: "0 0 194px",
+                verticalAlign: "baseline",
+                alignItems: "flex-end",
+                position: "relative",
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              <Avatar style={{ width: "25px", height: "25px" }} />
+            </div>
             <div className="flex flex-col">
-              <Typography variant="span">D Regis</Typography>
-              <Link className="text-blue-400" to={"/profilePic"}>
-                <Typography variant="span">Change profile picture</Typography>
+              <Typography variant="span" style={{ fontSize: "10px" }}>
+                {userInfo.username}
+              </Typography>
+              <Link className="text-blue-400" to={"/profile/change/profilePic"}>
+                <Typography
+                  variant="span"
+                  style={{ fontSize: "9px", fontWeight: 500 }}
+                >
+                  Change profile picture
+                </Typography>
               </Link>
             </div>
-          </Box>
+          </div>
+        </Box>
 
-          <Box>
-            <form className="flex flex-col">
-              <div>
+        <Box>
+          <form
+            className="flex flex-col"
+            style={{ alignItems: "stretch", verticalAlign: "baseline" }}
+          >
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                flexDirection: "row",
+                marginBottom: "16px",
+              }}
+            >
+              <div
+                style={{
+                  display: "block",
+                  paddingLeft: "32px",
+                  paddingRight: "32px",
+                  textAlign: "right",
+                  flex: "0 0 194px",
+                }}
+              >
                 <label
                   htmlFor="name"
-                  style={{ fontSize: "10px", fontWeight: 500 }}
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 500,
+                    verticalAlign: "baseline",
+                  }}
                 >
                   Name
                 </label>
-                <div className="flex flex-col w-full gap-1">
+              </div>
+              <div
+                className="flex flex-col"
+                style={{
+                  alignItems: "stretch",
+                  flexGrow: 1,
+                  // flexShrink: 0,
+                  verticalAlign: "baseline",
+                  justifyContent: "flex-start",
+                  position: "relative",
+                }}
+              >
+                <div
+                  style={{
+                    maxWidth: "355px",
+                    width: "100%",
+                    overflowY: "visible",
+                    display: "inline-block",
+                    flexShrink: 0,
+                    overflowX: "visible",
+                    alignSelf: "auto",
+                    position: "relative",
+                    flexGrow: 0,
+                  }}
+                >
                   <input
                     type="text"
                     disabled
-                    value="D Regis"
-                    className="cursor-not-allowed border rounded-sm text-sm px-2 py-1 bg-gray-100 text-gray-400"
+                    value={userInfo.fullname}
+                    className="cursor-not-allowed w-full border rounded-sm text-sm px-2 py-1 bg-gray-100 text-gray-400"
                     name="name"
                   />
-                  <Typography
-                    variant="span"
-                    style={{ fontSize: "8px" }}
-                    className="text-gray-500"
+                  <div
+                    style={{
+                      maxWidth: "355px",
+                      width: "100%",
+                      overflowY: "visible",
+                      display: "flex",
+                      flexDirection: "column",
+                      overflowX: "visible",
+                      position: "relative",
+                      alignItems: "stretch",
+                      justifyContent: "flex-start",
+                    }}
                   >
-                    You are using the same name on Instagram and Facebook. Go to
-                    Facebook to change your name.
-                    <Link to={"https://facebook.com"}>
-                      <span
-                        style={{ fontSize: "8px" }}
-                        className="text-blue-400"
-                      >
-                        {" "}
-                        Change Name
-                      </span>
-                    </Link>
-                  </Typography>
+                    <Typography
+                      variant="span"
+                      style={{ fontSize: "8px", display: "block" }}
+                      className="text-gray-500"
+                    >
+                      You are using the same name on Instagram and Facebook. Go
+                      to Facebook to change your name.
+                      <Link to={"https://facebook.com"}>
+                        <span
+                          style={{ fontSize: "8px" }}
+                          className="text-blue-400"
+                        >
+                          {" "}
+                          Change Name
+                        </span>
+                      </Link>
+                    </Typography>
+                  </div>
                 </div>
               </div>
+            </div>
 
-              <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                flexDirection: "row",
+                marginBottom: "16px",
+              }}
+            >
+              <div
+                style={{
+                  display: "block",
+                  paddingLeft: "32px",
+                  paddingRight: "32px",
+                  textAlign: "right",
+                  flex: "0 0 194px",
+                }}
+              >
                 <label
                   htmlFor="username"
-                  style={{ fontSize: "10px", fontWeight: 500 }}
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 500,
+                    verticalAlign: "baseline",
+                  }}
                 >
                   Username
                 </label>
-                <div className="flex flex-col w-full gap-1">
-                  <input
-                    type="text"
-                    value="D Regis"
-                    className="border outline-none rounded-sm text-sm px-2 py-1 bg-gray-100"
-                    name="username"
-                  />
+              </div>
+              <div
+                className="flex flex-col"
+                style={{
+                  alignItems: "stretch",
+                  flexGrow: 1,
+                  // flexShrink: 0,
+                  verticalAlign: "baseline",
+                  justifyContent: "flex-start",
+                  position: "relative",
+                }}
+              >
+                <input
+                  type="text"
+                  value={userInfo.username}
+                  className="border outline-none rounded-sm text-sm px-2 py-1 bg-gray-100"
+                  name="username"
+                />
+                <div
+                  style={{
+                    maxWidth: "355px",
+                    width: "100%",
+                    overflowY: "visible",
+                    display: "flex",
+                    flexDirection: "column",
+                    overflowX: "visible",
+                    position: "relative",
+                    alignItems: "stretch",
+                    justifyContent: "flex-start",
+                  }}
+                >
                   <Typography
                     variant="span"
                     style={{ fontSize: "8px" }}
                     className="text-gray-500"
                   >
                     In most cases, you'll be able to change your username back
-                    to dregi_s250 for another 14 days.
-                    <Link to={"https://facebook.com"}>
+                    to {userInfo.username} for another 14 days.
+                    <Link to={"/profile/change/name"}>
                       <span
                         style={{ fontSize: "8px" }}
                         className="text-blue-400"
@@ -88,26 +227,67 @@ const ProfileForm = () => {
                   </Typography>
                 </div>
               </div>
+            </div>
 
-              <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                flexDirection: "row",
+                marginBottom: "16px",
+              }}
+            >
+              <div
+                style={{
+                  display: "block",
+                  paddingLeft: "32px",
+                  paddingRight: "32px",
+                  textAlign: "right",
+                  flex: "0 0 194px",
+                }}
+              >
                 <label
                   htmlFor="website"
                   style={{ fontSize: "10px", fontWeight: 500 }}
                 >
                   Website
                 </label>
-                <div className="flex flex-col w-full gap-1">
-                  <input
-                    type="text"
-                    disabled
-                    value="Website"
-                    className="cursor-not-allowed border rounded-sm text-sm px-2 py-1 bg-gray-100 text-gray-400"
-                    name="website"
-                  />
+              </div>
+              <div
+                className="flex flex-col"
+                style={{
+                  alignItems: "stretch",
+                  flexGrow: 1,
+                  // flexShrink: 0,
+                  verticalAlign: "baseline",
+                  justifyContent: "flex-start",
+                  position: "relative",
+                }}
+              >
+                <input
+                  type="text"
+                  disabled
+                  value="Website"
+                  className="cursor-not-allowed border rounded-sm text-sm px-2 py-1 bg-gray-100 text-gray-400"
+                  name="website"
+                />
+                <div
+                  style={{
+                    maxWidth: "355px",
+                    width: "100%",
+                    overflowY: "visible",
+                    display: "flex",
+                    flexDirection: "column",
+                    overflowX: "visible",
+                    position: "relative",
+                    alignItems: "stretch",
+                    justifyContent: "flex-start",
+                  }}
+                >
                   <Typography
                     variant="span"
                     style={{ fontSize: "8px" }}
-                    className="text-gray-500"
+                    className="text-gray-500 block"
                   >
                     Editing your links is only available on mobile. Visit the
                     Instagram app and edit your profile to change the websites
@@ -115,113 +295,348 @@ const ProfileForm = () => {
                   </Typography>
                 </div>
               </div>
+            </div>
 
-              <div>
+            <div
+              style={{
+                display: "flex",
+                justifyContent: "flex-start",
+                flexDirection: "row",
+                marginBottom: "16px",
+              }}
+            >
+              <div
+                style={{
+                  display: "block",
+                  paddingLeft: "32px",
+                  paddingRight: "32px",
+                  textAlign: "right",
+                  flex: "0 0 194px",
+                }}
+              >
                 <label
                   htmlFor="bio"
-                  style={{ fontSize: "10px", fontWeight: 500 }}
+                  style={{
+                    fontSize: "10px",
+                    fontWeight: 500,
+                    verticalAlign: "baseline",
+                  }}
                 >
                   Bio
                 </label>
-                <div className="flex flex-col w-full gap-7">
-                  <div className="flex flex-col">
-                    <textarea
-                      className="border w-full outline-none px-2 py-1"
-                      style={{ height: "50px" }}
-                      name="bio"
-                    />
-                    <span style={{ fontSize: "9px" }} className="text-gray-500">
-                      0 / 150
-                    </span>
-                  </div>
+              </div>
+              <div
+                className="flex flex-col"
+                style={{
+                  alignItems: "stretch",
+                  flexGrow: 1,
+                  // flexShrink: 0,
+                  verticalAlign: "baseline",
+                  justifyContent: "flex-start",
+                  position: "relative",
+                }}
+              >
+                <div className="flex flex-col text-left">
+                  <textarea
+                    className="border w-full outline-none px-2 py-1"
+                    style={{ height: "50px" }}
+                    name="bio"
+                  />
+                  <span style={{ fontSize: "9px" }} className="text-gray-500">
+                    0 / 150
+                  </span>
+                </div>
+                <div
+                  style={{
+                    maxWidth: "355px",
+                    width: "100%",
+                    overflowY: "visible",
+                    display: "flex",
+                    flexDirection: "column",
+                    overflowX: "visible",
+                    position: "relative",
+                    alignItems: "stretch",
+                    justifyContent: "flex-start",
+                    textAlign: "left",
+                    marginTop: "15px",
+                  }}
+                >
                   <Typography
                     variant="span"
-                    style={{ fontSize: "8px" }}
+                    style={{
+                      fontSize: "8px",
+                      display: "flex",
+                      flexDirection: "column",
+                    }}
                     className="text-gray-500"
                   >
-                    Personal information Provide your personal information, even
-                    if the account is used for a business, a pet or something
-                    else. This won't be a part of your public profile.
+                    <span style={{ fontWeight: 500, fontSize: "9px" }}>
+                      Personal information
+                    </span>{" "}
+                    Provide your personal information, even if the account is
+                    used for a business, a pet or something else. This won't be
+                    a part of your public profile.
                   </Typography>
                 </div>
               </div>
+            </div>
 
-              <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                marginBottom: "16px",
+              }}
+            >
+              <div
+                style={{
+                  display: "block",
+                  paddingLeft: "32px",
+                  paddingRight: "32px",
+                  textAlign: "right",
+                  flex: "0 0 194px",
+                }}
+              >
                 <label
                   htmlFor="email"
                   style={{ fontSize: "10px", fontWeight: 500 }}
                 >
                   Email
                 </label>
-                <input
-                  type="text"
-                  name="email"
-                  className="outline-none border rounded-sm text-sm px-2 py-1"
-                  placeholder="Email"
-                />
               </div>
+              <div
+                className="flex flex-col"
+                style={{
+                  alignItems: "stretch",
+                  flexGrow: 1,
+                  // flexShrink: 0,
+                  verticalAlign: "baseline",
+                  justifyContent: "flex-start",
+                  position: "relative",
+                }}
+              >
+                <div
+                  style={{
+                    maxWidth: "355px",
+                    width: "100%",
+                    overflowY: "visible",
+                    display: "inline-block",
+                    flexShrink: 0,
+                    overflowX: "visible",
+                    alignSelf: "auto",
+                    position: "relative",
+                    flexGrow: 0,
+                  }}
+                >
+                  <input
+                    type="text"
+                    name="email"
+                    className="outline-none w-full border rounded-sm text-sm px-2 py-1"
+                    placeholder="Email"
+                  />
+                </div>
+              </div>
+            </div>
 
-              <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                marginBottom: "16px",
+              }}
+            >
+              <div
+                style={{
+                  display: "block",
+                  paddingLeft: "32px",
+                  paddingRight: "32px",
+                  textAlign: "right",
+                  flex: "0 0 194px",
+                }}
+              >
                 <label
                   htmlFor="number"
                   style={{ fontSize: "10px", fontWeight: 500 }}
                 >
                   Phone Number
                 </label>
-                <input
-                  type="text"
-                  name="number"
-                  className="outline-none border rounded-sm text-sm px-2 py-1"
-                  placeholder="Phone Number"
-                  value={"+250786430853"}
-                />
               </div>
+              <div
+                className="flex flex-col"
+                style={{
+                  alignItems: "stretch",
+                  flexGrow: 1,
+                  // flexShrink: 0,
+                  verticalAlign: "baseline",
+                  justifyContent: "flex-start",
+                  position: "relative",
+                }}
+              >
+                <div
+                  style={{
+                    maxWidth: "355px",
+                    width: "100%",
+                    overflowY: "visible",
+                    display: "inline-block",
+                    flexShrink: 0,
+                    overflowX: "visible",
+                    alignSelf: "auto",
+                    position: "relative",
+                    flexGrow: 0,
+                  }}
+                >
+                  <input
+                    type="text"
+                    name="number"
+                    className="outline-none w-full border rounded-sm text-sm px-2 py-1"
+                    placeholder="Phone Number"
+                    value={userInfo.number}
+                  />
+                </div>
+              </div>
+            </div>
 
-              <div>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                marginBottom: "16px",
+              }}
+            >
+              <div
+                style={{
+                  paddingLeft: "100px",
+                  paddingRight: "38px",
+                }}
+              >
+                <div
+                  style={{
+                    width: "130px",
+                    height: "25px",
+                    textAlign: "center",
+                  }}
+                  className="border rounded-lg bg-blue-500 hover:bg-blue-600"
+                >
+                  <Typography
+                    fontSize={"9px"}
+                    fontWeight={500}
+                    color={"white"}
+                    variant="span"
+                  >
+                    Confirm phone number
+                  </Typography>
+                </div>
+              </div>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                marginBottom: "16px",
+              }}
+            >
+              <div
+                style={{
+                  display: "block",
+                  paddingLeft: "32px",
+                  paddingRight: "32px",
+                  textAlign: "right",
+                  flex: "0 0 194px",
+                }}
+              >
                 <label
                   htmlFor="number"
                   style={{ fontSize: "10px", fontWeight: 500 }}
                 >
                   Gender
                 </label>
-                <input
-                  type="text"
-                  name="number"
-                  className="outline-none border rounded-sm text-sm px-2 py-1"
-                  value={"Prefer not to say"}
-                />
               </div>
+              <input
+                type="text"
+                name="number"
+                className="outline-none border w-full rounded-sm text-sm px-2 py-1"
+                value={"Prefer not to say"}
+              />
+            </div>
 
-              <div>
+            <div
+              className="flex items-center py-5"
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "flex-start",
+                marginBottom: "16px",
+              }}
+            >
+              <div
+                style={{
+                  display: "block",
+                  paddingLeft: "32px",
+                  paddingRight: "32px",
+                  textAlign: "right",
+                  flex: "0 0 194px",
+                }}
+              >
                 <label
                   htmlFor="number"
                   style={{ fontSize: "10px", fontWeight: 500 }}
                 >
                   Show account suggestions on profiles
                 </label>
-                <div>
-                  <input
-                    type="checkbox"
-                    name="number"
-                    className="outline-none"
-                  />
-
-                  <Typography style={{ fontSize: '9px', fontWeight: 500}} variant="span">
-                    Choose whether people can see similar account suggestions on
-                    your profile, and whether your account can be suggested on
-                    other profiles.[?]
-                  </Typography>
-                </div>
               </div>
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="number"
+                  className="outline-none mr-2"
+                />
 
-              <div>
-                <button type="submit" style={{color: 'white', fontSize: '9px', fontWeight: 500}} className='bg-blue-500 hover:bg-blue-600 px-3 text-center py-1 rounded-lg'>Submit</button>
-                <Typography style={{ fontSize: '9px', fontWeight: 500}} variant="span" className="text-blue-500 hover:text-blue-900 cursor-pointer">Temporary deactivate my account</Typography>
+                <Typography
+                  style={{ fontSize: "9px", fontWeight: 500 }}
+                  variant="span"
+                >
+                  Choose whether people can see similar account suggestions on
+                  your profile, and whether your account can be suggested on
+                  other profiles.
+                  <span style={{ fontSize: "9px" }} className="text-blue-500">
+                    [?]
+                  </span>
+                </Typography>
               </div>
-            </form>
-          </Box>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "center",
+                marginBottom: "16px",
+                alignItems: "center",
+              }}
+            >
+              <button
+                type="submit"
+                style={{ color: "white", fontSize: "9px", fontWeight: 500 }}
+                className="bg-blue-500 hover:bg-blue-600 px-3 text-center py-1 rounded-lg mr-9"
+              >
+                Submit
+              </button>
+              <Typography
+                style={{ fontSize: "9px", fontWeight: 500 }}
+                variant="span"
+                className="text-blue-500 hover:text-blue-900 cursor-pointer"
+              >
+                Temporary deactivate my account
+              </Typography>
+            </div>
+          </form>
         </Box>
-      </Stack>
+      </Box>
     </>
   );
 };

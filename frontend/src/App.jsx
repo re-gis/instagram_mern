@@ -21,7 +21,7 @@ function App() {
           <Route path="/login" element={<LoginScreen />} />
           <Route path="/signup" element={<SignupScreen />} />
           <Route path="/:subpages?" element={<ProfileScreen />} />
-          <Route path="/accounts/edit" element={<ProfileEditScreen />} />
+          <Route path="/profile/accounts/edit" element={<ProfileEditScreen />} />
         </Routes>
       </BrowserRouter>
     </>

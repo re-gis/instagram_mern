@@ -63,7 +63,7 @@ app.post("/user/signup", async (req, res) => {
     !userData.fullname ||
     !userData.number
   ) {
-    return res.send({ message: "All credentials are required!" });
+    return res.status(401).send({ message: "All credentials are required!" });
   } else {
     // Check if the user already exists
     const { username, fullname, number, password } = userData;
@@ -100,7 +100,7 @@ app.post("/user/login", async (req, res) => {
   const { username, password } = req.body;
 
   if (!username || !password) {
-    return res.send({ message: "All credentials are required!" });
+    return res.status(401).send({ message: "All credentials are required!" });
   } else {
     try {
       // check the credentials

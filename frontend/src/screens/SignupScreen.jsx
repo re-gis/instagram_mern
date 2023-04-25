@@ -36,7 +36,7 @@ const SignupScreen = () => {
       localStorage.setItem("userInfo", JSON.stringify(data));
       navigate('/')
     } catch (error) {
-      toast(getError(error))
+      toast.error(getError(error))
     }
   };
 
@@ -217,7 +217,7 @@ const SignupScreen = () => {
               >
                 Have an account?{" "}
                 <Link
-                  to={"/signup"}
+                  to={"/login"}
                   style={{ fontSize: "9px", fontWeight: 500 }}
                   className="text-blue-400"
                 >

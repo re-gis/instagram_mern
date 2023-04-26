@@ -56,7 +56,7 @@ useEffect(() => {
                     flexDirection: "column",
                   }}
                 >
-                  <Avatar style={{ width: "25px", height: "25px" }} />
+                  <Avatar src={userInfo.photo} style={{ width: "25px", height: "25px" }} />
                 </div>
                 <div className="flex flex-col">
                   <Typography variant="span" style={{ fontSize: "10px" }}>

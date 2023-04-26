@@ -18,8 +18,11 @@ const userSchema = new userModel(
       type: Number,
     },
     photo: {
-      type: String
-    }
+      type: String,
+    },
+    cloudinary_id: {
+      type: String,
+    },
   },
   {
     timestamps: true,

@@ -25,6 +25,7 @@ const Profile = () => {
           className="border-b w-full pb-10 pl-12 text-center items-center"
         >
           <Avatar
+          src={userInfo.photo}
             style={{ width: "80px", height: "80px" }}
             className="mr-20 cursor-pointer"
           />

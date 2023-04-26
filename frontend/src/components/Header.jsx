@@ -54,7 +54,7 @@ const Header = () => {
 
             <div className="flex justify-between ml-3 my-3 cursor-pointer">
               <div className="flex items-center gap-3">
-                <Avatar style={{ width: "30px", height: "30px" }} />
+                <Avatar src={userInfo.photo} style={{ width: "30px", height: "30px" }} />
                 <Typography
                   variant="span"
                   className="text-black"
@@ -95,6 +95,7 @@ const Header = () => {
               to={`/${userInfo.username}`}
             >
               <Avatar
+              src={userInfo.photo}
                 style={{ width: "35px", height: "35px" }}
                 className="cursor-pointer"
               />

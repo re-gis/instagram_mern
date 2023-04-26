@@ -52,6 +52,7 @@ const BadgeStyle2 = styled(Badge)({
 
 const Menu = () => {
   const [open, setOpen] = useState(false);
+  const [notiOpen, setNotiOpen] = useState(false);
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
 
@@ -73,89 +74,104 @@ const Menu = () => {
     return classes;
   };
 
-  if (open) {
-    return (
-      <>
-        <Drawer open={open}>
-          <Box
-            className="w-96 flex h-full"
-            style={{ borderTopRightRadius: "20px" }}
-          >
-            <Stack
-              display={"flex"}
-              className="border-r justify-between"
-              flexDirection="column"
-              width="15%"
-              height={"100%"}
+  return (
+    <>
+      {open && (
+        <>
+          <Drawer open={open}>
+            <Box
+              className="w-96 flex h-full"
+              style={{ borderTopRightRadius: "20px" }}
             >
-              <Box>
-                <List disablePadding className="flex flex-col gap-4">
-                  <Box className="mb-9 mt-3">
+              <Stack
+                display={"flex"}
+                className="border-r justify-between"
+                flexDirection="column"
+                width="15%"
+                height={"100%"}
+              >
+                <Box>
+                  <List disablePadding className="flex flex-col gap-4">
+                    <Box className="mb-9 mt-3">
+                      <Link to={"/"}>
+                        <ListItem
+                          disablePadding
+                          className={linkClasses("home")}
+                        >
+                          <ListItemButton className="w-full">
+                            <ListItemIcon className="pr-0">
+                              <InstagramIcon
+                                className={linkClasses("instagram")}
+                              />
+                            </ListItemIcon>
+                          </ListItemButton>
+                        </ListItem>
+                      </Link>
+                    </Box>
                     <Link to={"/"}>
                       <ListItem disablePadding className={linkClasses("home")}>
                         <ListItemButton className="w-full">
                           <ListItemIcon className="pr-0">
-                            <InstagramIcon
-                              className={linkClasses("instagram")}
+                            <HomeIcon className={linkClasses("home")} />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+
+                    <ListItem disablePadding className={linkClasses("search")}>
+                      <ListItemButton
+                        onClick={() => {
+                          setNotiOpen(false);
+                          setOpen(!open);
+                        }}
+                      >
+                        <ListItemIcon>
+                          <SearchIcon className={linkClasses("search")} />
+                        </ListItemIcon>
+                      </ListItemButton>
+                    </ListItem>
+
+                    <Link to={"/reels"}>
+                      <ListItem disablePadding className={linkClasses("reels")}>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <VideoLibraryOutlinedIcon
+                              className={linkClasses("reels")}
                             />
                           </ListItemIcon>
                         </ListItemButton>
                       </ListItem>
                     </Link>
-                  </Box>
-                  <Link to={"/"}>
-                    <ListItem disablePadding className={linkClasses("home")}>
-                      <ListItemButton className="w-full">
-                        <ListItemIcon className="pr-0">
-                          <HomeIcon className={linkClasses("home")} />
-                        </ListItemIcon>
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>
 
-                  <ListItem disablePadding className={linkClasses("search")}>
-                    <ListItemButton onClick={() => setOpen(!open)}>
-                      <ListItemIcon>
-                        <SearchIcon className={linkClasses("search")} />
-                      </ListItemIcon>
-                    </ListItemButton>
-                  </ListItem>
+                    <Link to={"/messages"}>
+                      <ListItem
+                        disablePadding
+                        className={linkClasses("messages")}
+                      >
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <BadgeStyle2 color="error" badgeContent={4}>
+                              <MessageNoneOutlinedIcon
+                                className={linkClasses("messages")}
+                              />
+                            </BadgeStyle2>
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
 
-                  <Link to={"/reels"}>
-                    <ListItem disablePadding className={linkClasses("reels")}>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <VideoLibraryOutlinedIcon
-                            className={linkClasses("reels")}
-                          />
-                        </ListItemIcon>
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>
+                    {/* <Link to={"/notifications"}> */}
 
-                  <Link to={"/messages"}>
-                    <ListItem
-                      disablePadding
-                      className={linkClasses("messages")}
-                    >
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <BadgeStyle2 color="error" badgeContent={4}>
-                            <MessageNoneOutlinedIcon
-                              className={linkClasses("messages")}
-                            />
-                          </BadgeStyle2>
-                        </ListItemIcon>
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>
-
-                  <Link to={"/notifications"}>
                     <ListItem
                       disablePadding
                       className={linkClasses("notifications")}
                     >
-                      <ListItemButton>
+                      <ListItemButton
+                        onClick={() => {
+                          setOpen(false);
+                          setNotiOpen(!notiOpen);
+                        }}
+                      >
                         <ListItemIcon>
                           <BadgeStyle
                             badgeContent=""
@@ -170,92 +186,256 @@ const Menu = () => {
                         </ListItemIcon>
                       </ListItemButton>
                     </ListItem>
-                  </Link>
+                    {/* </Link> */}
 
-                  <Link to={"/create"}>
-                    <ListItem disablePadding className={linkClasses("create")}>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <AddBoxOutlinedIcon
-                            className={linkClasses("create")}
-                          />
-                        </ListItemIcon>
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>
+                    <Link to={"/create"}>
+                      <ListItem
+                        disablePadding
+                        className={linkClasses("create")}
+                      >
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <AddBoxOutlinedIcon
+                              className={linkClasses("create")}
+                            />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
 
-                  <Link to={`/${userInfo.username}`}>
-                    <ListItem
-                      disablePadding
-                      className={linkClasses(`${userInfo.username}`)}
+                    <Link to={`/${userInfo.username}`}>
+                      <ListItem
+                        disablePadding
+                        className={linkClasses(`${userInfo.username}`)}
+                      >
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <StyledAvatar
+                              src={userInfo.photo}
+                              className={linkClasses(`${userInfo.fullname}`)}
+                            />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+                  </List>
+                </Box>
+
+                <Box className="mb-8">
+                  <List>
+                    <Link to={"/more"}>
+                      <ListItem disablePadding className={linkClasses("more")}>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <MenuOutlinedIcon className={linkClasses("more")} />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+                  </List>
+                </Box>
+              </Stack>
+
+              <Box display={"flex"} flexDirection={"column"} className="w-full">
+                <Box flex={0.2} className="border-b">
+                  <div className="py-6 px-5 flex flex-col gap-9">
+                    <h1
+                      style={{ fontSize: "15px", fontWeight: 500 }}
+                      className="cursor-default"
                     >
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <StyledAvatar
-                            className={linkClasses(`${userInfo.fullname}`)}
-                          />
-                        </ListItemIcon>
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>
-                </List>
-              </Box>
-
-              <Box className="mb-8">
-                <List>
-                  <Link to={"/more"}>
-                    <ListItem disablePadding className={linkClasses("more")}>
-                      <ListItemButton>
-                        <ListItemIcon>
-                          <MenuOutlinedIcon className={linkClasses("more")} />
-                        </ListItemIcon>
-                      </ListItemButton>
-                    </ListItem>
-                  </Link>
-                </List>
-              </Box>
-            </Stack>
-
-            <Box display={"flex"} flexDirection={"column"} className="w-full">
-              <Box flex={0.2} className="border-b">
-                <div className="py-6 px-5 flex flex-col gap-9">
-                  <h1
-                    style={{ fontSize: "15px", fontWeight: 500 }}
-                    className="cursor-default"
-                  >
-                    Search
-                  </h1>
-                  <div className="border-none px-3 h-9 rounded-lg bg-gray-100">
-                    <input
-                      type="text"
-                      className="outline-none placeholder:text-gray-400 w-full bg-gray-100 h-full rounded-lg"
-                      placeholder="Search"
-                    />
-                  </div>
-                </div>
-              </Box>
-              <Box flex={0.8}>
-                <div>
-                  <div
-                    className="flex justify-between h-16 py-3 px-4 text-sm text-blue-400"
-                    style={{ fontWeight: 500 }}
-                  >
-                    <h1 className="text-black">Recent</h1>
-                    <h1 className="text-red-400 cursor-pointer hover:text-red-500 hover:underline">
-                      Clear all
+                      Search
                     </h1>
+                    <div className="border-none px-3 h-9 rounded-lg bg-gray-100">
+                      <input
+                        type="text"
+                        className="outline-none placeholder:text-gray-400 w-full bg-gray-100 h-full rounded-lg"
+                        placeholder="Search"
+                      />
+                    </div>
                   </div>
-                  <Searches />
-                </div>
+                </Box>
+                <Box flex={0.8}>
+                  <div>
+                    <div
+                      className="flex justify-between h-16 py-3 px-4 text-sm text-blue-400"
+                      style={{ fontWeight: 500 }}
+                    >
+                      <h1 className="text-black">Recent</h1>
+                      <h1 className="text-red-400 cursor-pointer hover:text-red-500 hover:underline">
+                        Clear all
+                      </h1>
+                    </div>
+                    <Searches />
+                  </div>
+                </Box>
               </Box>
             </Box>
-          </Box>
-        </Drawer>
-      </>
-    );
-  }
-  return (
-    <>
+          </Drawer>
+        </>
+      )}
+
+      {notiOpen && (
+        <>
+          <Drawer open={notiOpen}>
+            <Box
+              className="w-96 flex h-full"
+              style={{ borderTopRightRadius: "20px" }}
+            >
+              <Stack
+                display={"flex"}
+                className="border-r justify-between"
+                flexDirection="column"
+                width="15%"
+                height={"100%"}
+              >
+                <Box>
+                  <List disablePadding className="flex flex-col gap-4">
+                    <Box className="mb-9 mt-3">
+                      <Link to={"/"}>
+                        <ListItem
+                          disablePadding
+                          className={linkClasses("home")}
+                        >
+                          <ListItemButton className="w-full">
+                            <ListItemIcon className="pr-0">
+                              <InstagramIcon
+                                className={linkClasses("instagram")}
+                              />
+                            </ListItemIcon>
+                          </ListItemButton>
+                        </ListItem>
+                      </Link>
+                    </Box>
+                    <Link to={"/"}>
+                      <ListItem disablePadding className={linkClasses("home")}>
+                        <ListItemButton className="w-full">
+                          <ListItemIcon className="pr-0">
+                            <HomeIcon className={linkClasses("home")} />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+
+                    <ListItem disablePadding className={linkClasses("search")}>
+                      <ListItemButton
+                        onClick={() => {
+                          setNotiOpen(false);
+                          setOpen(!open);
+                        }}
+                      >
+                        <ListItemIcon>
+                          <SearchIcon className={linkClasses("search")} />
+                        </ListItemIcon>
+                      </ListItemButton>
+                    </ListItem>
+
+                    <Link to={"/reels"}>
+                      <ListItem disablePadding className={linkClasses("reels")}>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <VideoLibraryOutlinedIcon
+                              className={linkClasses("reels")}
+                            />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+
+                    <Link to={"/messages"}>
+                      <ListItem
+                        disablePadding
+                        className={linkClasses("messages")}
+                      >
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <BadgeStyle2 color="error" badgeContent={4}>
+                              <MessageNoneOutlinedIcon
+                                className={linkClasses("messages")}
+                              />
+                            </BadgeStyle2>
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+
+                    <ListItem
+                      disablePadding
+                      className={linkClasses("notifications")}
+                    >
+                      <ListItemButton
+                        onClick={() => {
+                          setOpen(false);
+                          setNotiOpen(!notiOpen);
+                        }}
+                      >
+                        <ListItemIcon>
+                          <BadgeStyle
+                            badgeContent=""
+                            overlap="circular"
+                            variant="dot"
+                            color="error"
+                          >
+                            <NotificationsNoneOutlinedIcon
+                              className={linkClasses("notifications")}
+                            />
+                          </BadgeStyle>
+                        </ListItemIcon>
+                      </ListItemButton>
+                    </ListItem>
+
+                    <Link to={"/create"}>
+                      <ListItem
+                        disablePadding
+                        className={linkClasses("create")}
+                      >
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <AddBoxOutlinedIcon
+                              className={linkClasses("create")}
+                            />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+
+                    <Link to={`/${userInfo.username}`}>
+                      <ListItem
+                        disablePadding
+                        className={linkClasses(`${userInfo.username}`)}
+                      >
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <StyledAvatar
+                              src={userInfo.photo}
+                              className={linkClasses(`${userInfo.fullname}`)}
+                            />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+                  </List>
+                </Box>
+
+                <Box className="mb-8">
+                  <List>
+                    <Link to={"/more"}>
+                      <ListItem disablePadding className={linkClasses("more")}>
+                        <ListItemButton>
+                          <ListItemIcon>
+                            <MenuOutlinedIcon className={linkClasses("more")} />
+                          </ListItemIcon>
+                        </ListItemButton>
+                      </ListItem>
+                    </Link>
+                  </List>
+                </Box>
+              </Stack>
+
+             
+            </Box>
+          </Drawer>
+        </>
+      )}
       {userInfo && (
         <Stack
           display={"flex"}
@@ -294,7 +474,12 @@ const Menu = () => {
               </Link>
 
               <ListItem disablePadding className={linkClasses("search")}>
-                <ListItemButton onClick={() => setOpen(!open)}>
+                <ListItemButton
+                  onClick={() => {
+                    setNotiOpen(false);
+                    setOpen(!open);
+                  }}
+                >
                   <ListItemIcon>
                     <SearchIcon className={linkClasses("search")} />
                   </ListItemIcon>
@@ -345,33 +530,33 @@ const Menu = () => {
                 </ListItem>
               </Link>
 
-              <Link to={"/notifications"}>
-                <ListItem
-                  disablePadding
-                  className={linkClasses("notifications")}
+              <ListItem disablePadding className={linkClasses("notifications")}>
+                <ListItemButton
+                  onClick={() => {
+                    setOpen(false);
+                    setNotiOpen(!notiOpen);
+                  }}
                 >
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <BadgeStyle
-                        badgeContent=""
-                        overlap="circular"
-                        variant="dot"
-                        color="error"
-                      >
-                        <NotificationsNoneOutlinedIcon
-                          className={linkClasses("notifications")}
-                        />
-                      </BadgeStyle>
-                    </ListItemIcon>
-                    <ListItemText
-                      primaryTypographyProps={{
-                        fontSize: "10px",
-                      }}
-                      primary="Notifications"
-                    />
-                  </ListItemButton>
-                </ListItem>
-              </Link>
+                  <ListItemIcon>
+                    <BadgeStyle
+                      badgeContent=""
+                      overlap="circular"
+                      variant="dot"
+                      color="error"
+                    >
+                      <NotificationsNoneOutlinedIcon
+                        className={linkClasses("notifications")}
+                      />
+                    </BadgeStyle>
+                  </ListItemIcon>
+                  <ListItemText
+                    primaryTypographyProps={{
+                      fontSize: "10px",
+                    }}
+                    primary="Notifications"
+                  />
+                </ListItemButton>
+              </ListItem>
 
               <Link to={"/create"}>
                 <ListItem disablePadding className={linkClasses("create")}>
@@ -397,6 +582,7 @@ const Menu = () => {
                   <ListItemButton>
                     <ListItemIcon>
                       <StyledAvatar
+                        src={userInfo.photo}
                         className={linkClasses(`${userInfo.fullname}`)}
                       />
                     </ListItemIcon>

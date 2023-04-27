@@ -23,6 +23,20 @@ const userSchema = new userModel(
     cloudinary_id: {
       type: String,
     },
+    bio: {
+      type: String,
+    },
+    gender: {
+      type: String,
+      default: "Prefer Not Say",
+    },
+    token: {
+      type: String,
+    },
+
+    email: {
+      type: String
+    }
   },
   {
     timestamps: true,

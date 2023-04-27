@@ -1,46 +1,50 @@
-import { Avatar, Typography } from '@mui/material';
-import React from 'react'
+import { Avatar, Typography } from "@mui/material";
+import React from "react";
+import Notiz from "./Notiz";
 
 const Notifications = () => {
   return (
     <>
       <>
-        <div className="mb-3 flex items-center justify-between">
-          <div className="flex items-center flex-wrap gap-3 w-64 cursor-pointer hover:bg-gray-100">
-            <Avatar
-              style={{
-                width: "30px",
-                height: "30px",
-                marginLeft: "15px",
-              }}
-            />
-            <div>
-              <Typography
-                style={{ fontSize: "9px", fontWeight: 500 }}
-                variant="span"
-              >
-                __king.liah
-              </Typography>
-              <div>
-                <Typography
-                  variant="span"
-                  style={{ fontSize: "9px" }}
-                  className="text-gray-500"
-                >
-                  God's daughter <span className="text-bold">&#x2022;</span>{" "}
-                  Followed by d...
-                </Typography>
-              </div>
-            </div>
+        <div className="h-full flex flex-col">
+          <div className="w-full" style={{ flex: "0.06" }}>
+            <Typography
+              variant="h1"
+              style={{ fontSize: "15px", fontWeight: 700 }}
+              className="pl-5 pt-3"
+            >
+              Notifications
+            </Typography>
           </div>
 
-          <div>
-            <i className="fas fa-trash text-red-400 hover:text-red-500 cursor-pointer mr-9"></i>
+          <div style={{ flex: "0.94" }} className="border-t pb-2">
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
+            <Notiz />
           </div>
         </div>
       </>
     </>
   );
-}
+};
 
-export default Notifications
+export default Notifications;

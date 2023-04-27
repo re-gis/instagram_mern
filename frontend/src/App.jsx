@@ -10,6 +10,7 @@ import ProfileScreen from "./screens/ProfileScreen";
 import ProfileEditScreen from "./screens/ProfileEditScreen";
 import ReelsScreen from "./screens/ReelsScreen";
 import MessagesScreen from "./screens/MessagesScreen";
+import PassResetscreen from "./screens/PassResetscreen";
 
 axios.defaults.baseURL = "http://127.0.0.1:2000";
 axios.defaults.withCredentials = true;
@@ -30,6 +31,7 @@ function App() {
           />
           <Route path="/reels" element={<ReelsScreen />} />
           <Route path="/messages" element={<MessagesScreen />} />
+          <Route path="/passreset" element={<PassResetscreen />} />
         </Routes>
       </BrowserRouter>
     </>

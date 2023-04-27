@@ -25,6 +25,7 @@ import { Link, useLocation } from "react-router-dom";
 import { Stack } from "@mui/system";
 import { Store } from "../Store";
 import Searches from "./drawer/Searches";
+import Notifications from "./drawer/Notifications";
 
 const StyledAvatar = styled(Avatar)({
   width: "20px",
@@ -266,6 +267,28 @@ const Menu = () => {
                       </h1>
                     </div>
                     <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
+                    <Searches />
                   </div>
                 </Box>
               </Box>
@@ -287,6 +310,7 @@ const Menu = () => {
                 flexDirection="column"
                 width="15%"
                 height={"100%"}
+                position={"sticky"}
               >
                 <Box>
                   <List disablePadding className="flex flex-col gap-4">
@@ -430,7 +454,9 @@ const Menu = () => {
                   </List>
                 </Box>
               </Stack>
-
+              <Box width={'85%'} className='flex flex-col'>
+                <Notifications />
+              </Box>
              
             </Box>
           </Drawer>
@@ -600,7 +626,6 @@ const Menu = () => {
 
           <Box className="mb-8">
             <List>
-              <Link to={"/more"}>
                 <ListItem disablePadding className={linkClasses("more")}>
                   <ListItemButton>
                     <ListItemIcon>
@@ -614,7 +639,6 @@ const Menu = () => {
                     />
                   </ListItemButton>
                 </ListItem>
-              </Link>
             </List>
           </Box>
         </Stack>

@@ -182,6 +182,57 @@ app.post("/upload", protect, async (req, res) => {
   }
 });
 
+// Update user profile
+app.post("/profile/update", protect, async (req, res) => {
+  const user = await User.findById(req.user._id);
+  const { ...userData } = req.body;
+  const { name, username, bio, email, number, gender } = userData;
+
+  if (!name || !username || !number || typeof number !== "number") {
+    return res.status(401).send({ message: "Invalid inputs!" });
+  } else {
+    try {
+      user.username = username;
+      user.email = email;
+      user.name = name;
+      user.number = number;
+      user.bio = bio;
+      user.gender = gender;
+      user.token = generateToken(user);
+      user.save();
+      return res.send(user);
+    } catch (error) {
+      res.status(401).send({ message: "Invalid inputs" });
+    }
+  }
+});
+
+// Reset password
+app.post("/pass/reset", async (req, res) => {
+  const { ...userData } = req.body;
+  const { username, number, newPass, confirmPass } = userData;
+
+  if (!username || !number || !newPass || !confirmPass) {
+    return res.status(401).send({ message: "All credentials required!" });
+  } else {
+   // Check the user existence
+   if(!(await User.findOne({username}) && await User.findOne({number}))) {
+    return res.status(401).send({ message: 'Invalid username or number'})
+  } else {
+    if(newPass !== confirmPass) {
+      return res.status(401).send({ message: 'Please confirm password'})
+    } else {
+      // Change the password
+      const user = await User.findOne({username, number})
+      user.password = await bcrypt.hash(newPass, 10)
+      user.save()
+      return res.send({user, message: 'Password reset successfully!'})
+    }
+
+  }
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server listening port ${PORT}`);
 });

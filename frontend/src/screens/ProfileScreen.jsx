@@ -13,7 +13,6 @@ const StyledStack = styled(Stack)({
 
 const ProfileScreen = () => {
     const params = useParams()
-    const {user} = params
   return (
     <>
       <div>

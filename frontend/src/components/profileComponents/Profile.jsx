@@ -35,7 +35,7 @@ const Profile = () => {
           >
             <div
               style={{ display: "flex" }}
-              className="justify-between items-center"
+              className="justify-between items-center gap-3"
             >
               <h1 style={{ fontSize: "13px" }}>{userInfo.username}</h1>
               <Link to={'/profile/accounts/edit'}>

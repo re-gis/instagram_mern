@@ -57,10 +57,10 @@ const Profile = () => {
                 <b className="text-sm">1</b> post
               </h1>
               <h1 className="cursor-pointer">
-                <b className="text-sm">77</b> followers
+                <b className="text-sm">77k</b> followers
               </h1>
               <h1 className="cursor-pointer">
-                <b className="text-sm">67</b> following
+                <b className="text-sm">1.2k</b> following
               </h1>
             </div>
 

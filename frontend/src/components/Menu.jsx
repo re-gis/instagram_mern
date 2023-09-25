@@ -270,25 +270,6 @@ const Menu = () => {
                     <Searches />
                     <Searches />
                     <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
-                    <Searches />
                   </div>
                 </Box>
               </Box>
@@ -454,10 +435,9 @@ const Menu = () => {
                   </List>
                 </Box>
               </Stack>
-              <Box width={'85%'} className='flex flex-col'>
+              <Box width={"85%"} className="flex flex-col">
                 <Notifications />
               </Box>
-             
             </Box>
           </Drawer>
         </>
@@ -626,19 +606,19 @@ const Menu = () => {
 
           <Box className="mb-8">
             <List>
-                <ListItem disablePadding className={linkClasses("more")}>
-                  <ListItemButton>
-                    <ListItemIcon>
-                      <MenuOutlinedIcon className={linkClasses("more")} />
-                    </ListItemIcon>
-                    <ListItemText
-                      primaryTypographyProps={{
-                        fontSize: "10px",
-                      }}
-                      primary="More"
-                    />
-                  </ListItemButton>
-                </ListItem>
+              <ListItem disablePadding className={linkClasses("more")}>
+                <ListItemButton>
+                  <ListItemIcon>
+                    <MenuOutlinedIcon className={linkClasses("more")} />
+                  </ListItemIcon>
+                  <ListItemText
+                    primaryTypographyProps={{
+                      fontSize: "10px",
+                    }}
+                    primary="More"
+                  />
+                </ListItemButton>
+              </ListItem>
             </List>
           </Box>
         </Stack>

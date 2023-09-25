@@ -11,12 +11,12 @@ import { toast } from "react-toastify";
 import { getError } from "../utils";
 
 const SignupScreen = () => {
-  const [emailOrNumber, setEmailOrNumber] = useState('');
+  const [emailOrNumber, setEmailOrNumber] = useState("");
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [fullname, setFullname] = useState("");
 
-  const navigate = useNavigate()
+  const navigate = useNavigate();
 
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
@@ -34,17 +34,17 @@ const SignupScreen = () => {
 
       dispatch({ type: "USER_SIGNIN", payload: data });
       localStorage.setItem("userInfo", JSON.stringify(data));
-      navigate('/')
+      navigate("/");
     } catch (error) {
-      toast.error(getError(error))
+      toast.error(getError(error));
     }
   };
 
   useEffect(() => {
-    if(userInfo) {
-      navigate('/')
+    if (userInfo) {
+      navigate("/");
     }
-  },[navigate, userInfo])
+  }, [navigate, userInfo]);
 
   return (
     <>

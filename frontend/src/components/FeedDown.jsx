@@ -44,6 +44,9 @@ const StyledBox = styled(Box)({
 });
 
 const FeedDown = () => {
+  const handleClick = (e) => {
+    e.preventDefault();
+  };
   return (
     <>
       <Stack
@@ -164,7 +167,7 @@ const FeedDown = () => {
                       className="outline-none w-full placeholder:text-gray-400 text-xs"
                     />
                     <button
-                      type="submit"
+                      onClick={handleClick}
                       className="border-none text-blue-500 bg-none"
                     >
                       <b>Post</b>

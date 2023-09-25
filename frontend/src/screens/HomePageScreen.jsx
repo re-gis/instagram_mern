@@ -26,7 +26,7 @@ const HomePageScreen = () => {
 
   return (
     <>
-      <div>
+      <div className="main-container">
         <StyledStack spacing={5} flex={1}>
           <Box flex={0.2}>
             <Menu />

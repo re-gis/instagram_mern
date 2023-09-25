@@ -4,8 +4,8 @@ import React from "react";
 const Searches = () => {
   return (
     <>
-      <div className="mb-3 flex items-center justify-between">
-        <div className="flex items-center flex-wrap gap-3 w-64 cursor-pointer hover:bg-gray-100">
+      <div className="mb-3 flex items-center justify-between hover:bg-gray-100">
+        <div className="flex items-center flex-wrap gap-3 w-64 cursor-pointer">
           <Avatar
             style={{
               width: "30px",

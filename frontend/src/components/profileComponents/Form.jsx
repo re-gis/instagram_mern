@@ -8,56 +8,55 @@ import { getError } from "../../utils";
 import axios from "axios";
 
 const Form = () => {
-    const { state, dispatch } = useContext(Store);
-    const { userInfo } = state;
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
 
-    const [fullname, setFullname] = useState(userInfo.fullname);
-    const [username, setUsername] = useState(userInfo.username);
-    const [number, setNumber] = useState(userInfo.number);
-    const [email, setEmail] = useState(userInfo.email ? userInfo.email : "");
-    const [website, setWebsite] = useState("Website");
-    const [bio, setBio] = useState(userInfo.bio);
-    const [gender, setGender] = useState(
-      userInfo.gender ? userInfo.gender : "Prefer Not To Say"
-    );
-    const [profile, setProfile] = useState("");
-    const [open, setOpen] = useState(false);
+  const [fullname, setFullname] = useState(userInfo.fullname);
+  const [username, setUsername] = useState(userInfo.username);
+  const [number, setNumber] = useState(userInfo.number);
+  const [email, setEmail] = useState(userInfo.email ? userInfo.email : "");
+  const [website, setWebsite] = useState("Website");
+  const [bio, setBio] = useState(userInfo.bio);
+  const [gender, setGender] = useState(
+    userInfo.gender ? userInfo.gender : "Prefer Not To Say"
+  );
+  const [profile, setProfile] = useState("");
+  const [open, setOpen] = useState(false);
 
+  const navigate = useNavigate();
+  useEffect(() => {
+    if (!userInfo) {
+      navigate("/login");
+    }
+  }, [navigate, userInfo]);
 
-    const navigate = useNavigate();
-    useEffect(() => {
-      if (!userInfo) {
-        navigate("/login");
-      }
-    }, [navigate, userInfo]);
-
-    const handleUpdate = async (e) => {
-      e.preventDefault();
-      try {
-        const { data } = await axios.post(
-          "/profile/update",
-          {
-            name: fullname,
-            username,
-            number,
-            email,
-            bio,
-            gender,
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+    try {
+      const { data } = await axios.post(
+        "/profile/update",
+        {
+          name: fullname,
+          username,
+          number,
+          email,
+          bio,
+          gender,
+        },
+        {
+          headers: {
+            authorization: "Bearer " + userInfo.token,
           },
-          {
-            headers: {
-              authorization: "Bearer " + userInfo.token,
-            },
-          }
-        );
+        }
+      );
 
-        dispatch({ type: "USER_SIGNIN", payload: data });
-        localStorage.setItem("userInfo", JSON.stringify(data));
-        navigate(`/${userInfo.username}`);
-      } catch (error) {
-        toast.error(getError(error));
-      }
-    };
+      dispatch({ type: "USER_SIGNIN", payload: data });
+      localStorage.setItem("userInfo", JSON.stringify(data));
+      navigate(`/${userInfo.username}`);
+    } catch (error) {
+      toast.error(getError(error));
+    }
+  };
   return (
     <>
       <form
@@ -633,7 +632,7 @@ const Form = () => {
         >
           <button
             onClick={handleUpdate}
-            type="submit"
+            
             style={{ color: "white", fontSize: "9px", fontWeight: 500 }}
             className="bg-blue-500 hover:bg-blue-600 px-3 text-center py-1 rounded-lg mr-9"
           >

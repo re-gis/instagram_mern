@@ -1,25 +1,96 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import { Avatar, Backdrop, Box, Checkbox, Typography } from "@mui/material";
 import { Link, useNavigate } from "react-router-dom";
 import { Store } from "../../Store";
 import Form from "./Form";
+import { toast } from "react-toastify";
+import { getError } from "../../utils";
+import axios from "axios";
 
 const ProfileHeader = () => {
-  const { state } = useContext(Store);
+  const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
+  const navigate = useNavigate();
+
+  const inputRef = useRef(null);
 
   const [open, setOpen] = useState(false);
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   useEffect(() => {
     if (!userInfo) {
       navigate("/login");
     }
   }, [navigate, userInfo]);
 
+  const handleClick = (e) => {
+    e.preventDefault();
+    inputRef.current.click();
+  };
+
+  const handleFileChange = async (e) => {
+    try {
+      const fileObj = e.target.files && e.target.files[0];
+      if (!fileObj) {
+        return;
+      } else {
+        const { data } = await axios.post(
+          "/upload",
+          {
+            fileObj,
+          },
+          {
+            headers: {
+              "Content-Type": "multipart/form-data",
+              authorization: "Bearer " + userInfo.token,
+            },
+          }
+        );
+        dispatch({ type: "USER_SIGNOUT" });
+        localStorage.removeItem("userInfo");
+        navigate("/login");
+        toast.success("Login to apply changes!");
+        e.target.value = null;
+      }
+    } catch (error) {
+      toast.error(getError(error));
+      navigate(`/${userInfo.username}`);
+    }
+  };
+
+  const handleProfileRemove = async (e) => {
+    e.preventDefault();
+
+    try {
+      const { data } = await axios.post(
+        "/profile/remove",
+        {},
+        {
+          headers: {
+            authorization: "Bearer " + userInfo.token,
+          },
+        }
+      );
+
+        dispatch({ type: "USER_SIGNOUT" });
+        localStorage.removeItem("userInfo");
+        navigate("/login");
+        toast.success("Login to apply changes!");
+
+    } catch (error) {
+      toast.error(getError(error));
+    }
+  };
+
   if (open) {
     return (
       <>
+        <input
+          type="file"
+          style={{ display: "none" }}
+          ref={inputRef}
+          onChange={handleFileChange}
+        />
         <Box className="flex flex-col items-stretch align-baseline">
           <ProfileHeader />
         </Box>
@@ -52,40 +123,42 @@ const ProfileHeader = () => {
             </div>
 
             <div
-              className="border-b flex justify-center flex-col items-center active:bg-gray-300"
+              className="border-b flex justify-center flex-col items-center cursor-pointer active:bg-gray-300"
               style={{ flex: "0.2" }}
+              onClick={handleClick}
             >
-              <Link>
-                <Typography
-                  style={{ fontSize: "9px", fontWeight: 500 }}
-                  className="text-blue-500"
-                >
-                  Upload photo
-                </Typography>
-              </Link>
+              {/* <Link> */}
+              <Typography
+                style={{ fontSize: "9px", fontWeight: 500 }}
+                className="text-blue-500 hover:text-blue-400"
+              >
+                Upload photo
+              </Typography>
+              {/* </Link> */}
             </div>
 
             <div
               className="border-b flex justify-center flex-col items-center active:bg-gray-300"
               style={{ flex: "0.2" }}
+              onClick={handleProfileRemove}
             >
-              <Link>
-                <Typography
-                  style={{ fontSize: "9px", fontWeight: 500 }}
-                  className="text-red-500"
-                >
-                  Remove Current Photo
-                </Typography>
-              </Link>
+              {/* <Link> */}
+              <Typography
+                style={{ fontSize: "9px", fontWeight: 500 }}
+                className="text-red-500 hover:text-red-400 cursor-pointer"
+              >
+                Remove Current Photo
+              </Typography>
+              {/* </Link> */}
             </div>
             <div
-              className="flex justify-center flex-col items-center active:bg-gray-300"
+              className="flex justify-center cursor-pointer flex-col items-center active:bg-gray-300"
               style={{ flex: "0.2" }}
               onClick={() => setOpen(false)}
             >
               <Typography
                 style={{ fontSize: "9px" }}
-                className="text-black cursor-pointer"
+                className="text-black hover:text-gray-700"
               >
                 Cancel
               </Typography>

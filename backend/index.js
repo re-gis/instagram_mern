@@ -38,7 +38,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(
   cors({
     credentials: true,
-    origin: "http://127.0.0.1:5173",
+    origin: "http://localhost:5173",
   })
 );
 
@@ -106,7 +106,9 @@ app.post("/user/signup", async (req, res) => {
             token: generateToken(user),
           });
         } catch (error) {
-          console.log(error);
+          return res.status(403).send({
+            message: "Check the form correctly...",
+          });
         }
       }
     } catch (error) {
@@ -148,17 +150,24 @@ app.post("/upload", protect, async (req, res) => {
     if (!req.files) {
       return res.status(401).send({ message: "Please upload a picture" });
     } else {
-      const photo = req.files.photo;
+      // console.log(req.files.fileObj)
+      const photo = req.files.fileObj;
+      const user = await User.findById(req.user._id);
+      // console.log(user);
+
+      // console.log(photo)
       if (!photo.mimetype.startsWith("image")) {
         return res.status(401).send({ message: "Please upload a photo file" });
       } else {
         const ext = photo.name.split(".")[1];
-        photo.name = `${req.user.username}_profile.${ext}`;
+        photo.name = `${req.user.username}_profile2.${ext}`;
+        // console.log(photo)
 
         let profilePic = await cloudinary.uploader.upload(photo.tempFilePath);
         if (!profilePic) {
           return res.status(500).send({ message: "Internal server error" });
         } else {
+          // console.log(profilePic)
           const body = {
             photo: profilePic.secure_url,
             cloudinary_id: profilePic.public_id,
@@ -172,7 +181,14 @@ app.post("/upload", protect, async (req, res) => {
           if (!profilePic) {
             return res.status(401).send({ message: "Not updated!" });
           } else {
-            return res.status(201).send({ message: profilePic });
+            const username = user.username;
+            const fullname = user.fullname;
+            const photo = user.photo;
+            const token = generateToken(user);
+            const number = user.number;
+            return res
+              .status(201)
+              .send({ username, fullname, number, photo, token });
           }
         }
       }
@@ -200,9 +216,13 @@ app.post("/profile/update", protect, async (req, res) => {
       user.gender = gender;
       user.token = generateToken(user);
       user.save();
-      return res.send(user);
+      const fullname = user.fullname;
+      const photo = user.photo;
+      const token = user.token;
+      return res.send({ username, fullname, number, photo, token });
     } catch (error) {
       res.status(401).send({ message: "Invalid inputs" });
+      console.log(error);
     }
   }
 });
@@ -215,23 +235,47 @@ app.post("/pass/reset", async (req, res) => {
   if (!username || !number || !newPass || !confirmPass) {
     return res.status(401).send({ message: "All credentials required!" });
   } else {
-   // Check the user existence
-   if(!(await User.findOne({username}) && await User.findOne({number}))) {
-    return res.status(401).send({ message: 'Invalid username or number'})
-  } else {
-    if(newPass !== confirmPass) {
-      return res.status(401).send({ message: 'Please confirm password'})
+    // Check the user existence
+    if (
+      !((await User.findOne({ username })) && (await User.findOne({ number })))
+    ) {
+      return res.status(401).send({ message: "Invalid username or number" });
     } else {
-      // Change the password
-      const user = await User.findOne({username, number})
-      user.password = await bcrypt.hash(newPass, 10)
-      user.save()
-      return res.send({user, message: 'Password reset successfully!'})
+      if (newPass !== confirmPass) {
+        return res.status(401).send({ message: "Please confirm password" });
+      } else {
+        // Change the password
+        const user = await User.findOne({ username, number });
+        user.password = await bcrypt.hash(newPass, 10);
+        user.save();
+        return res.send({ user, message: "Password reset successfully!" });
+      }
     }
-
-  }
   }
 });
+
+// Removing profile picture
+app.post("/profile/remove", protect, async (req, res) => {
+  // remove the profile picture from database
+  const newUser = await User.findById(req.user._id);
+  newUser.photo = null;
+  newUser.save();
+
+  const username = newUser.username;
+  const fullname = newUser.fullname;
+  const token = newUser.token;
+  const number = newUser.token;
+
+  return res.send({ username, fullname, number, token });
+});
+
+// Get suggested users
+app.get("/suggested/users", protect, async (req, res) => {
+  const users = await User.find();
+  res.status(200).send(users[0]);
+});
+
+// Messages //
 
 app.listen(PORT, () => {
   console.log(`Server listening port ${PORT}`);

@@ -17,7 +17,10 @@ const Notifications = () => {
             </Typography>
           </div>
 
-          <div style={{ flex: "0.94" }} className="border-t pb-2">
+          <div
+            style={{ flex: "0.94", overflowY: "scroll" }}
+            className="border-t pb-2 scroll w-[100%]"
+          >
             <Notiz />
             <Notiz />
             <Notiz />
